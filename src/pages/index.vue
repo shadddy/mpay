@@ -79,10 +79,50 @@
 						<h3>{{$t("index.experience.list1_1")}}</h3>
 						<p class="clearfix">
 							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_2")}}</span>
-							<span class="ellipsis" ><i></i>{{$t("index.experience.list1_3")}}</span>
+							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list1_btn")}}</button>
 					</li>
+					<li>
+						<span><img src="../../static/img/exp-2.png" alt=""></span>
+						<h3>{{$t("index.experience.list2_1")}}</h3>
+						<p class="clearfix">
+							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_2")}}</span>
+							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_3")}}</span>
+						</p>
+						<button class="ellipsis">{{$t("index.experience.list2_btn")}}</button>
+					</li>
+					<li>
+						<span><img src="../../static/img/exp-3.png" alt=""></span>
+						<h3>{{$t("index.experience.list3_1")}}</h3>
+						<p class="clearfix">
+							{{$t("index.experience.list3_2")}}
+						</p>
+						<button class="ellipsis">{{$t("index.experience.list3_btn")}}</button>
+					</li>
+					<li>
+						<span><img src="../../static/img/exp-4.png" alt=""></span>
+						<h3>{{$t("index.experience.list4_1")}}</h3>
+						<p class="clearfix">
+							{{$t("index.experience.list4_2")}}
+						</p>
+						<button class="ellipsis">{{$t("index.experience.list4_btn")}}</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--上线流程-->
+		<div class="online">
+			<div class="container">
+				<h1>{{$t('online.title')}}</h1>
+				<p>{{$t('online.title2')}}</p>
+				<ul class="clearfix">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>	
 				</ul>
 			</div>
 		</div>
@@ -262,18 +302,53 @@
 					font-size: 18px;
 					padding: 24px 0 26px 0;
 				}
+				button{
+					width:215px;
+		height:56px;line-height:40px;
+		border:1px solid #00aaef;
+		border-radius: 5px;
+		color:#fff;
+		background: #00aaef;
+		font-size:18px;
+		box-sizing:border-box;
+		margin:38px auto 0 auto;
+		display:block;
+		cursor:pointer;
+				}
 			}
 			ul li:last-of-type {
 				margin-right: 0;
 			}
 			ul li>span {
-				width: 50px;
-				height: 60px;
+				width: 128px;
+				height:128px;
 				display: block;
 				margin: 0 auto;
 				img {
 					display: block;
 					margin: 0 auto;
+				}
+			}
+		}
+	}
+	.online{
+		width: 100%;
+		height: 718px;
+		background-image: url(../../static/img/online-bg.png);
+		background-position: center;
+		.container{
+			padding: 110px 30px;
+			h1{
+				color: white;
+			}
+			ul{
+				li{
+					width: 120px;
+					height: 120px;
+					background: #14465a;
+					border-radius: 50%;
+					border: 1px solid #86888a;
+					display: inline-block;
 				}
 			}
 		}

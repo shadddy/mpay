@@ -8,6 +8,23 @@
 						{{item.name}}
 					</li>
 				</ul>
+				<nav class="navbar">
+					<h4>
+						<span>
+							<i></i>
+							<i></i>
+							<i></i>
+						</span>
+					</h4>
+					<ul>
+						<li v-for="item in navList" :class="item.act?'act':null">
+							<h3 :class="item.length?'act':null" @click="Router(item.url)">{{item.name}}</h3>
+							<div>
+								<p v-for="items in item.subData" @click="Router(items.url)">{{items.name}}</p>
+							</div>
+						</li>
+					</ul>
+				</nav>
 				<!--注册-->
 				<div class="register">
 					{{$t("header.register")}}
@@ -26,22 +43,28 @@
 		data() {
 			return {
 				navList: [{
-						name: this.$t("header.nav_first.nav1")
+						name: this.$t("header.nav_first.nav1"),
+						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav2")
+						name: this.$t("header.nav_first.nav2"),
+						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav3")
+						name: this.$t("header.nav_first.nav3"),
+						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav4")
+						name: this.$t("header.nav_first.nav4"),
+						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav5")
+						name: this.$t("header.nav_first.nav5"),
+						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav6")
+						name: this.$t("header.nav_first.nav6"),
+						"act": false
 					}
 				],
 				language: false,
@@ -121,7 +144,6 @@
 					cursor: pointer;
 					box-sizing: border-box;
 					float: left;
-
 					text-align: right;
 					background: white;
 				}
@@ -134,9 +156,76 @@
 				span:nth-of-type(2).act {
 					top: 32px;
 				}
-				.cn{
+				.cn {
 					background-image: url(../../static/img/cn.png);
 					background-repeat: no-repeat;
+				}
+			}
+			.navbar {
+				color: #fff;
+				border: 1px solid #f1f1f1;
+				margin: 10px 0 0 0;
+				background: #fafafa;
+				margin-bottom: 20px;
+				width: 100%;
+				box-sizing: border-box;
+				h4 {
+					height: 46px;
+					span {
+						width: 44px;
+						height: 34px;
+						display: block;
+						border: 1px solid #ccc;
+						border-radius: 5px;
+						cursor: pointer;
+						box-sizing: border-box;
+						padding: 4px 0 0 0;
+						float: right;
+						margin: 6px 15px 0 0;
+						i {
+							width: 22px;
+							height: 2px;
+							background: #999;
+							display: block;
+							margin: 4px auto 0 auto;
+						}
+					}
+					span:hover {
+						border: 1px solid #03A9F4;
+					}
+				}
+				ul {
+					li {
+						color: #666;
+						font-weight: 700;
+						font-size: 14px;
+						line-height: 46px;
+						border-top: 1px solid #f1f1f1;
+						cursor: pointer;
+						padding-left: 20px;
+						h3 {
+							position: relative;
+						}
+						h3.act:after {
+							content: '';
+							display: block;
+							position: absolute;
+							width: 10px;
+							height: 10px;
+							border-bottom: 1px solid #ccc;
+							border-right: 1px solid #ccc;
+							transform: translateY(-50%) rotate(45deg);
+							right: 20px;
+							top: 50%;
+						}
+						p {
+							font-weight: 500;
+							padding-left: 20px;
+						}
+					}
+					li:hover {
+						background: #fff;
+					}
 				}
 			}
 		}

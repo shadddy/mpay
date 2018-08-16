@@ -100,5 +100,42 @@ module.exports={
 	partner:{
 		title1:'合作伙伴',
 		title2:'合作、共创、共赢'
+	},
+	footer:{
+		list1:{
+			txt1:'技术咨询',
+			txt2:'接入咨询',
+			txt3:'技术支持'
+		},
+		list2:{
+			txt1:'APP下载',
+			txt2:'小米',
+			txt3:'OPPO',
+			txt4:'华为',
+			txt5:'三星',
+			txt6:'魅族'
+		},
+		list3:{
+			txt1:'解决方案',
+			txt2:'免签约模式',
+			txt3:'代付模式',
+			txt4:'替代三方模式',
+			txt5:'匿名模式'
+		},
+		list4:{
+			txt1:'案列展示',
+			txt2:'费率方案'
+		},
+		list5:{
+			txt1:'帮助中心',
+			txt2:'接入指南',
+			txt3:'API文档',
+			txt4:'API Demo'
+		},
+		list6:{
+			txt1:'开发者模式',
+			txt2:'免费试用',
+			txt3:'关于我们'
+		}
 	}
 }

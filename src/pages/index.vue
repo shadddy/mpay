@@ -78,8 +78,8 @@
 						<span><img src="../../static/img/exp-1.png" alt=""></span>
 						<h3>{{$t("index.experience.list1_1")}}</h3>
 						<p class="clearfix">
-							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_2")}}</span>
-							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_3")}}</span>
+							<span class="ellipsis"><i></i>{{$t("index.experience.list1_2")}}</span>
+							<span class="ellipsis"><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list1_btn")}}</button>
 					</li>
@@ -87,8 +87,8 @@
 						<span><img src="../../static/img/exp-2.png" alt=""></span>
 						<h3>{{$t("index.experience.list2_1")}}</h3>
 						<p class="clearfix">
-							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_2")}}</span>
-							<span class="ellipsis"  ><i></i>{{$t("index.experience.list1_3")}}</span>
+							<span class="ellipsis"><i></i>{{$t("index.experience.list1_2")}}</span>
+							<span class="ellipsis"><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list2_btn")}}</button>
 					</li>
@@ -122,19 +122,74 @@
 					<li></li>
 					<li></li>
 					<li></li>
-					<li></li>	
+					<li></li>
+				</ul>
+				<p></p>
+			</div>
+		</div>
+		<!--案例模板展示-->
+		<div class="templet">
+			<div class="container">
+				<h1>{{$t('templet.title')}}</h1>
+				<p>{{$t('templet.title2')}}</p>
+				<div class="big"><img src="../../static/img/templet-1.png"></div>
+				<div style="width: 530px;">
+					<div class="small"><img src="../../static/img/templet-2.png"></div>
+					<div class="small"><img src="../../static/img/templet-3.png"></div>
+					<div class="middle"><img src="../../static/img/templet-4.png"></div>
+				</div>
+				<div class="big"><img src="../../static/img/templet-5.png"></div>
+			</div>
+		</div>
+		<!--加入我们-->
+		<div class="join">
+			<div class="container">
+				<div class="left">
+					<h1>{{$t('join.left.title1')}}</h1>
+					<h1>{{$t('join.left.title2')}}</h1>
+					<button>{{$t('join.left.btn')}}</button>
+				</div>
+				<div class="right">
+					<h1>{{$t('join.right.title1')}}</h1>
+					<p>{{$t('join.right.title2')}}</p>
+					<button>{{$t('join.right.btn')}}</button>
+				</div>
+				
+			</div>
+		</div>
+		<!--客服-->
+		<div class="custom">
+			<div class="container">
+				<h1>{{$t('custom.title')}}</h1>
+				<button>{{$t('custom.btn')}}</button>
+			</div>
+		</div>
+		<!--合作伙伴-->
+		<div class="partner">
+			<div class="container">
+				<h1>{{$t('partner.title1')}}</h1>
+				<p>{{$t('partner.title2')}}</p>
+				<ul class="clearfix">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
 				</ul>
 			</div>
 		</div>
+		<my-footer></my-footer>
 	</div>
 
 </template>
 
 <script>
 	import header from '@/components/header'
+	import footer from '@/components/footer'
 	export default {
 		components: {
-			myHeader: header
+			myHeader: header,
+			myFooter: footer
 		},
 		data() {
 			return {
@@ -302,18 +357,19 @@
 					font-size: 18px;
 					padding: 24px 0 26px 0;
 				}
-				button{
-					width:215px;
-		height:56px;line-height:40px;
-		border:1px solid #00aaef;
-		border-radius: 5px;
-		color:#fff;
-		background: #00aaef;
-		font-size:18px;
-		box-sizing:border-box;
-		margin:38px auto 0 auto;
-		display:block;
-		cursor:pointer;
+				button {
+					width: 215px;
+					height: 56px;
+					line-height: 40px;
+					border: 1px solid #00aaef;
+					border-radius: 5px;
+					color: #fff;
+					background: #00aaef;
+					font-size: 18px;
+					box-sizing: border-box;
+					margin: 38px auto 0 auto;
+					display: block;
+					cursor: pointer;
 				}
 			}
 			ul li:last-of-type {
@@ -321,7 +377,7 @@
 			}
 			ul li>span {
 				width: 128px;
-				height:128px;
+				height: 128px;
 				display: block;
 				margin: 0 auto;
 				img {
@@ -331,25 +387,158 @@
 			}
 		}
 	}
-	.online{
+	
+	.online {
 		width: 100%;
 		height: 718px;
 		background-image: url(../../static/img/online-bg.png);
 		background-position: center;
-		.container{
+		.container {
 			padding: 110px 30px;
-			h1{
+			h1 {
 				color: white;
 			}
-			ul{
-				li{
+			ul {
+				li {
 					width: 120px;
 					height: 120px;
 					background: #14465a;
 					border-radius: 50%;
 					border: 1px solid #86888a;
 					display: inline-block;
+					margin-left: 80px;
 				}
+			}
+		}
+	}
+	
+	.templet {
+		.container {
+			padding: 110px 30px;
+			div {
+				display: inline-block;
+			}
+			.big {
+				width: 445px;
+				height: 584px;
+			}
+			.small {
+				width: 260px;
+				height: 274px;
+				margin-bottom: 33px;
+			}
+			.middle {
+				width: 530px;
+				height: 274px;
+			}
+		}
+	}
+	
+	.join {
+		width: 100%;
+		background-image: url(../../static/img/join-bg.png);
+		background-position: center;
+		overflow: hidden;
+		.container {
+			padding: 80px 50px;
+			div {
+				box-sizing: border-box;
+				padding-top: 50px;
+				padding-bottom: 80px;
+				width: 50%;
+				float: left;
+				min-width: 300px;
+			}
+			.left {
+				h1 {
+					color: white;
+					text-align: left;
+					line-height: 70px;
+				}
+				button {
+					background: transparent;
+					color: white;
+					border: 1px solid white;
+					padding: 15px 30px;
+					font-size: 16px;
+					border-radius: 10px;
+					cursor: pointer;
+					margin-top: 30px;
+				}
+			}
+			.right {
+				background: white;
+				border-radius: 10px;
+				padding-left: 100px;
+				button {
+					background: transparent;
+					color: black;
+					border: 1px solid black;
+					padding: 15px 30px;
+					font-size: 16px;
+					border-radius: 10px;
+					cursor: pointer;
+				}
+				h1 {
+					text-align: left;
+				}
+				p {
+					text-align: left;
+					font-size: 24px;
+					margin-top: 10px;
+					color: black;
+				}
+			}
+		}
+	}
+	.custom{
+		background: white;
+		.container{
+			padding: 120px 30px 60px 30px;
+			button{
+				display: block;
+				margin: 0 auto;
+				background: #00aaef;
+				border: none;
+				color: white;
+				width: 220px;
+				height: 48px;
+				text-align: center;
+				line-height: 48px;
+				border-radius: 5px;
+				margin-top: 50px;
+				cursor: pointer;
+			}
+		}
+	}
+	.partner{
+		background: #f5f5f5;
+		.container{
+			padding: 110px 30px;
+			ul{
+				li{
+					width: 252px;
+					height: 105px;
+					display: inline-block;
+					margin-left: 20px;
+					
+				}
+				li:nth-of-type(1){
+					background: url(../../static/img/partner-1.png);
+				}
+				li:nth-of-type(2){
+					background: url(../../static/img/partner-2.png);
+				}
+				li:nth-of-type(3){
+					background: url(../../static/img/partner-3.png);
+				}
+				li:nth-of-type(4){
+					background: url(../../static/img/partner-4.png);
+				}
+				li:nth-of-type(5){
+					background: url(../../static/img/partner-5.png);
+				}
+				
 			}
 		}
 	}

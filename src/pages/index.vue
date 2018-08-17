@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<my-header></my-header>
+		<my-dialog title="注册" @on-close="registerShow=false" v-show="registerShow"></my-dialog>
+		<my-header @open="registerShow=true"></my-header>
 		<div class="banner">
 			<!-- pc 轮播图-->
 			<el-carousel :interval="3000" arrow="always" class="bigShow" trigger="click" :height="bannerImgH">
@@ -8,6 +9,8 @@
 					<img :src="item" alt="">
 				</el-carousel-item>
 			</el-carousel>
+			<!--移动端轮播图-->
+			<swiper :list="imgList" v-model="imgIndex" :auto="false" :show-dots="false" :loop="loop" class="bigHide"></swiper>
 		</div>
 		<!--注册-->
 		<div class="payment">
@@ -31,12 +34,12 @@
 						<p>{{$t("index.payment_list_txt3")}}</p>
 					</li>
 				</ul>
-				<button>{{$t("index.register")}}</button>
+				<button @click="registerShow=true">{{$t("index.register")}}</button>
 			</div>
 		</div>
 		<!--解决方案-->
 		<div class="group">
-			<div class="container">
+			<div class="container clearfix">
 				<ul>
 					<li>
 						<h2>{{$t("group.list1_title")}}</h2>
@@ -78,8 +81,8 @@
 						<span><img src="../../static/img/exp-1.png" alt=""></span>
 						<h3>{{$t("index.experience.list1_1")}}</h3>
 						<p class="clearfix">
-							<span class="ellipsis"><i></i>{{$t("index.experience.list1_2")}}</span>
-							<span class="ellipsis"><i></i>{{$t("index.experience.list1_3")}}</span>
+							<span class="ellipsis" :class="isCheck?'act':null"  @click="isCheck=true"><i></i>{{$t("index.experience.list1_2")}}</span>
+							<span class="ellipsis" :class="!isCheck?'act':null" @click="isCheck=false"><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list1_btn")}}</button>
 					</li>
@@ -87,8 +90,8 @@
 						<span><img src="../../static/img/exp-2.png" alt=""></span>
 						<h3>{{$t("index.experience.list2_1")}}</h3>
 						<p class="clearfix">
-							<span class="ellipsis"><i></i>{{$t("index.experience.list1_2")}}</span>
-							<span class="ellipsis"><i></i>{{$t("index.experience.list1_3")}}</span>
+							<span class="ellipsis" :class="isCheck2?'act':null" @click="isCheck2=true"><i></i>{{$t("index.experience.list2_2")}}</span>
+							<span class="ellipsis" :class="!isCheck2	?'act':null" @click="isCheck2=false"><i></i>{{$t("index.experience.list2_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list2_btn")}}</button>
 					</li>
@@ -117,14 +120,16 @@
 				<h1>{{$t('online.title')}}</h1>
 				<p>{{$t('online.title2')}}</p>
 				<ul class="clearfix">
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li v-for="(item,index) in online" @click="onlineCheck(index)" :class="index==onlineInd?'act':null">
+						>>
+					</li>
 				</ul>
-				<p></p>
+				<h3 v-for="(item,index) in online" v-show="index==onlineInd">
+					{{item.title}}
+				</h3>
+				<p v-for="(item,index) in online" v-show="index==onlineInd">
+					{{item.txt}}
+				</p>
 			</div>
 		</div>
 		<!--案例模板展示-->
@@ -143,7 +148,7 @@
 		</div>
 		<!--加入我们-->
 		<div class="join">
-			<div class="container">
+			<div class="container clearfix">
 				<div class="left">
 					<h1>{{$t('join.left.title1')}}</h1>
 					<h1>{{$t('join.left.title2')}}</h1>
@@ -154,7 +159,7 @@
 					<p>{{$t('join.right.title2')}}</p>
 					<button>{{$t('join.right.btn')}}</button>
 				</div>
-				
+
 			</div>
 		</div>
 		<!--客服-->
@@ -186,28 +191,67 @@
 <script>
 	import header from '@/components/header'
 	import footer from '@/components/footer'
+	import dialog from '../components/dialog'
 	export default {
 		components: {
 			myHeader: header,
-			myFooter: footer
+			myFooter: footer,
+			myDialog:dialog
 		},
 		data() {
 			return {
-				bannerImgH: "0"
+				bannerImgH: "0",
+				registerShow:true,
+				imgList: [{
+					img: this.$t("banner.img1")
+				}, {
+					img: "../../static/img/banner2.png"
+				}, {
+					img: "../../static/img/banner3.png"
+				}],
+				imgIndex: 1,
+				loop: true,
+				online: [{
+					title: this.$t('online.mestitle1'),
+					txt: this.$t("online.mescont1")
+				}, {
+					title: this.$t('online.mestitle2'),
+					txt: this.$t("online.mescont2")
+				}, {
+					title: this.$t('online.mestitle3'),
+					txt: this.$t("online.mescont3")
+				}, {
+					title: this.$t('online.mestitle4'),
+					txt: this.$t("online.mescont4")
+				}, {
+					title: this.$t('online.mestitle5'),
+					txt: this.$t("online.mescont5")
+				}, {
+					title: this.$t('online.mestitle6'),
+					txt: this.$t("online.mescont6")
+				}],
+				onlineInd: 0,
+				isCheck:true,
+				isCheck2:true
 			}
 		},
 		methods: {
-			resSize: function() {
+			reSize: function() {
 				let bl = 1920 / 800,
 					bodyWidth = document.body.clientWidth;
 				this.bannerImgH = bodyWidth / bl + "px";
+			},
+			onlineCheck: function(val) {
+				console.log(val)
+				this.onlineInd = val
 			}
+
 		},
 		mounted() {
 			let that = this;
-			that.resSize();
+			that.reSize();
 			$(window).resize(function() {
-				that.resSize();
+				that.reSize();
 			})
 		}
 	}
@@ -241,7 +285,6 @@
 	
 	.payment {
 		width: 100%;
-		height: 840px;
 		.container {
 			padding: 110px 30px;
 			ul li {
@@ -287,19 +330,22 @@
 				display: block;
 			}
 			button:hover {
-				border-radius: 10px;
-				transition: .5s;
-				-moz-transition: .5s;
-				-webkit-transition: .5s;
+				background: transparent;
+				border: 1px solid #03A9F4;
+				color: #03A9F4;
+				transition: .3s;
+				-moz-transition: .3s;
+				-webkit-transition: .3s;
 			}
 		}
 	}
 	
 	.group {
 		width: 100%;
-		height: 1030px;
+		overflow: hidden;
 		background-image: url(../../static/img/groupBg.png);
 		background-position: center;
+		background-size: 100% 100%;
 		.container {
 			padding: 110px 0;
 			ul {
@@ -309,6 +355,13 @@
 					margin-right: 1%;
 					img {
 						width: 100%;
+					}
+					img:hover {
+						transform: scale(1.05);
+						transition: .3s;
+						-moz-transition: .3s;
+						-ms-transition: .3s;
+						-webkit-transition: .3s;
 					}
 					p {
 						padding: 0;
@@ -335,6 +388,13 @@
 						border-radius: 5px;
 						cursor: pointer;
 						margin-top: 80px;
+					}
+					button:hover {
+						background: #a6a6a6;
+						color: white;
+						-moz-transition: .3s;
+						-ms-transition: .3s;
+						-webkit-transition: .3s;
 					}
 				}
 			}
@@ -371,6 +431,49 @@
 					display: block;
 					cursor: pointer;
 				}
+				button:hover {
+					background: transparent;
+					color: #00aaef;
+					-moz-transition: .3s;
+					-ms-transition: .3s;
+					-webkit-transition: .3s;
+				}
+				span {
+					position: relative;
+					padding-left: 24px;
+					max-width: 50%;
+					box-sizing: border-box;
+					i {
+						width: 16px;
+						height: 16px;
+						border: 1px solid #999999;
+						display: block;
+						border-radius: 16px;
+						position: absolute;
+						left: 0;
+						top: 0;
+						box-sizing: border-box;
+					}
+				}
+				span.act{
+					color:#00aaef;
+					i{
+						border:1px solid #00aaef;
+					}
+					i:after{
+		content:'';
+		display:block;
+		width:10px;
+		height:10px;
+		background:#00aaef;
+		border-radius:10px;
+		position:absolute;
+		left:2px;
+		top:2px;
+	}
+				}
+				
+				
 			}
 			ul li:last-of-type {
 				margin-right: 0;
@@ -390,15 +493,17 @@
 	
 	.online {
 		width: 100%;
-		height: 718px;
 		background-image: url(../../static/img/online-bg.png);
 		background-position: center;
 		.container {
-			padding: 110px 30px;
+			padding: 110px 30px 30px 30px;
 			h1 {
 				color: white;
 			}
 			ul {
+				.act {
+					background: #00aaef;
+				}
 				li {
 					width: 120px;
 					height: 120px;
@@ -407,7 +512,18 @@
 					border: 1px solid #86888a;
 					display: inline-block;
 					margin-left: 80px;
+					cursor: pointer;
+					color: white;
+					font-size: 50px;
+					line-height: 120px;
+					text-align: center;
 				}
+			}
+			h3 {
+				text-align: center;
+				color: white;
+				font-size: 30px;
+				margin-top: 30px
 			}
 		}
 	}
@@ -448,6 +564,34 @@
 				width: 50%;
 				float: left;
 				min-width: 300px;
+				padding-left: 100px;
+				-moz-transition: .3s;
+				-ms-transition: .3s;
+				-webkit-transition: .3s;
+				h1 {
+					color: white;
+				}
+			}
+			div:hover {
+				background: white;
+				border-radius: 10px;
+			}
+			div:hover h1 {
+				color: #333;
+			}
+			div:hover button {
+				color: black;
+				border: 1px solid black;
+			}
+			div:hover p {
+				color: #333;
+			}
+			div button:hover {
+				background: black;
+				color: white;
+				-moz-transition: .3s;
+				-ms-transition: .3s;
+				-webkit-transition: .3s;
 			}
 			.left {
 				h1 {
@@ -467,13 +611,10 @@
 				}
 			}
 			.right {
-				background: white;
-				border-radius: 10px;
-				padding-left: 100px;
 				button {
 					background: transparent;
-					color: black;
-					border: 1px solid black;
+					color: white;
+					border: 1px solid white;
 					padding: 15px 30px;
 					font-size: 16px;
 					border-radius: 10px;
@@ -486,16 +627,17 @@
 					text-align: left;
 					font-size: 24px;
 					margin-top: 10px;
-					color: black;
+					color: white;
 				}
 			}
 		}
 	}
-	.custom{
+	
+	.custom {
 		background: white;
-		.container{
+		.container {
 			padding: 120px 30px 60px 30px;
-			button{
+			button {
 				display: block;
 				margin: 0 auto;
 				background: #00aaef;
@@ -509,37 +651,71 @@
 				margin-top: 50px;
 				cursor: pointer;
 			}
+			button:hover {
+				background: transparent;
+				color: #00aaef;
+				border: 1px solid #00aaef;
+				-moz-transition: .3s;
+				-ms-transition: .3s;
+				-webkit-transition: .3s;
+			}
 		}
 	}
-	.partner{
+	
+	.partner {
 		background: #f5f5f5;
-		.container{
+		.container {
 			padding: 110px 30px;
-			ul{
-				li{
+			ul {
+				li {
 					width: 252px;
 					height: 105px;
 					display: inline-block;
 					margin-left: 20px;
-					
 				}
-				li:nth-of-type(1){
+				li:nth-of-type(1) {
 					background: url(../../static/img/partner-1.png);
 				}
-				li:nth-of-type(2){
+				li:nth-of-type(2) {
 					background: url(../../static/img/partner-2.png);
 				}
-				li:nth-of-type(3){
+				li:nth-of-type(3) {
 					background: url(../../static/img/partner-3.png);
 				}
-				li:nth-of-type(4){
+				li:nth-of-type(4) {
 					background: url(../../static/img/partner-4.png);
 				}
-				li:nth-of-type(5){
+				li:nth-of-type(5) {
 					background: url(../../static/img/partner-5.png);
 				}
-				
 			}
+		}
+	}
+	
+	@media only screen and (max-width:600px) {
+		.payment .container ul li {
+			width: 100%;
+			margin-bottom: 20px;
+			padding: 0;
+		}
+		.group .container ul li {
+			width: 100%;
+			padding: 0;
+		}
+		.experience .container ul li {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+	}
+	
+	@media only screen and (max-width:768px) {
+		.payment .container,
+		.experience .container {
+			padding: 40px 15px;
+		}
+		.payment .container>h1,
+		.experience .container>h1 {
+			font-size: 22px;
 		}
 	}
 </style>

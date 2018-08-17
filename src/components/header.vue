@@ -1,8 +1,11 @@
 <template>
 	<div class="header-wrap">
-		<div class="header">
+		<div class="header clearfix">
 			<div class="container clearfix">
-				<img src="../../static/img/logo.png" class="logo" @click="()=>{this.$router.push('/');}" />
+				<h2>
+					<img src="../../static/img/logo.png" class="logo" @click="()=>{this.$router.push('/');}" />
+				</h2>
+
 				<ul class="nav clearfix">
 					<li v-for="item in navList">
 						{{item.name}}
@@ -10,7 +13,7 @@
 				</ul>
 				<nav class="navbar">
 					<h4>
-						<span>
+						<span @click="menu">
 							<i></i>
 							<i></i>
 							<i></i>
@@ -26,7 +29,7 @@
 					</ul>
 				</nav>
 				<!--注册-->
-				<div class="register">
+				<div class="register" @click="registerShow">
 					{{$t("header.register")}}
 				</div>
 				<div class="language">
@@ -36,6 +39,7 @@
 			</div>
 		</div>
 	</div>
+	
 </template>
 
 <script>
@@ -44,6 +48,56 @@
 			return {
 				navList: [{
 						name: this.$t("header.nav_first.nav1"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav2"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav3"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav4"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav5"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav6"),
+						"act": false
+					}
+				],
+				navListCn:[{
+						name: this.$t("header.nav_first.nav1"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav2"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav3"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav4"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav5"),
+						"act": false
+					},
+					{
+						name: this.$t("header.nav_first.nav6"),
+						"act": false
+					}
+				],
+				navListEn:[{
+						name: 'APP download',
 						"act": false
 					},
 					{
@@ -77,18 +131,46 @@
 				this.isLang = !this.isLang;
 				if(this.$i18n.locale == 'en') {
 					this.$i18n.locale = 'cn';
+					this.navList=this.navListCn
 				} else {
 					this.$i18n.locale = 'en';
+					this.navList=this.navListEn
 				};
 			},
 			isLangFun: function() {
 				this.isLang = !this.isLang
+			},
+			//下拉导航按钮
+			menu: function() {
+				$(".navbar>ul").slideToggle();
+			},
+			//打开注册页面
+			registerShow(){
+				this.$emit('open')
 			}
+		},
+		mounted(){
+			$(".navbar>ul li h3").click(function(){
+			if ($(this).next().is(":hidden")){
+				$(".navbar>ul li div").slideUp("slow");
+				$(this).next().slideDown("slow");
+			}else{
+				$(this).next().slideUp("slow");
+			}
+		})
 		}
 	}
 </script>
 
 <style scoped lang="less">
+	.header-wrap{
+		width: 100%;
+		background: white;
+		position: fixed;
+		top: 0;
+		z-index: 999;
+		overflow: hidden;
+	}
 	.header {
 		width: 100%;
 		background: white;
@@ -96,10 +178,12 @@
 		top: 0;
 		z-index: 999;
 		.container {
-			.logo {
-				margin-top: 15px;
-				cursor: pointer;
+			h2 {
 				float: left;
+				padding-top: 12px;
+			}
+			.logo {
+				cursor: pointer;
 			}
 			.nav {
 				float: left;
@@ -195,6 +279,7 @@
 					}
 				}
 				ul {
+					display: none;
 					li {
 						color: #666;
 						font-weight: 700;
@@ -205,6 +290,7 @@
 						padding-left: 20px;
 						h3 {
 							position: relative;
+							text-align: left;
 						}
 						h3.act:after {
 							content: '';
@@ -228,6 +314,36 @@
 					}
 				}
 			}
+		}
+	}
+	
+	@media only screen and (min-width:768px) {
+		.header .navbar {
+			display: none;
+		}
+	}
+	
+	@media only screen and (max-width:768px) {
+		.header .container h2 {
+			width: 100%;
+			float: initial;
+		}
+		.header img {
+			height: 35px;
+			display: block;
+		}
+		.header .register{
+			position:absolute;
+			top:0;
+			right:90px;
+		}
+		.header .container .language{
+			position: absolute;
+			top: 0;
+			right: 20px;
+		}
+		.header .container .nav {
+			display: none;
 		}
 	}
 </style>

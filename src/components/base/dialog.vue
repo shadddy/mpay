@@ -4,6 +4,7 @@
 			
 			<div class="dialog-content" v-if="isShow">
 				<span class="dialog-close" @click="closeMyself">X</span>
+				<slot>empty</slot>
 			</div>
 		</div>
 	</div>

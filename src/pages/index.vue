@@ -81,7 +81,7 @@
 						<span><img src="../../static/img/exp-1.png" alt=""></span>
 						<h3>{{$t("index.experience.list1_1")}}</h3>
 						<p class="clearfix">
-							<span class="ellipsis" :class="isCheck?'act':null"  @click="isCheck=true"><i></i>{{$t("index.experience.list1_2")}}</span>
+							<span class="ellipsis" :class="isCheck?'act':null" @click="isCheck=true"><i></i>{{$t("index.experience.list1_2")}}</span>
 							<span class="ellipsis" :class="!isCheck?'act':null" @click="isCheck=false"><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
 						<button class="ellipsis">{{$t("index.experience.list1_btn")}}</button>
@@ -138,7 +138,7 @@
 				<h1>{{$t('templet.title')}}</h1>
 				<p>{{$t('templet.title2')}}</p>
 				<div class="big"><img src="../../static/img/templet-1.png"></div>
-				<div style="width: 530px;">
+				<div class="box">
 					<div class="small"><img src="../../static/img/templet-2.png"></div>
 					<div class="small"><img src="../../static/img/templet-3.png"></div>
 					<div class="middle"><img src="../../static/img/templet-4.png"></div>
@@ -191,17 +191,17 @@
 <script>
 	import header from '@/components/header'
 	import footer from '@/components/footer'
-	import dialog from '../components/dialog'
+	import dialog from '../components/base/dialog'
 	export default {
 		components: {
 			myHeader: header,
 			myFooter: footer,
-			myDialog:dialog
+			myDialog: dialog
 		},
 		data() {
 			return {
 				bannerImgH: "0",
-				registerShow:true,
+				registerShow: false,
 				imgList: [{
 					img: this.$t("banner.img1")
 				}, {
@@ -231,8 +231,8 @@
 					txt: this.$t("online.mescont6")
 				}],
 				onlineInd: 0,
-				isCheck:true,
-				isCheck2:true
+				isCheck: true,
+				isCheck2: true
 			}
 		},
 		methods: {
@@ -287,32 +287,43 @@
 		width: 100%;
 		.container {
 			padding: 110px 30px;
-			ul li {
-				transition: .5s;
-				float: left;
-				width: calc(100% / 3);
-				padding: 0 30px;
-				box-sizing: border-box;
-				span {
-					display: block;
-					min-height: 64px;
+			ul {
+				li {
+					transition: .5s;
+					float: left;
+					width: calc(100% / 3);
+					padding: 0 30px;
+					box-sizing: border-box;
+					span {
+						display: block;
+						min-height: 64px;
+					}
+					img {
+						display: block;
+						margin: 0 auto;
+					}
+					h4 {
+						text-align: center;
+						color: #fc5f00;
+						font-size: 28px;
+						line-height: 70px;
+						margin-top: 15px;
+						padding: 10px 0;
+					}
+					p {
+						font-size: 16px;
+						color: #999999;
+						line-height: 24px;
+					}
 				}
-				img {
-					display: block;
-					margin: 0 auto;
+				li:hover{
+					background: #03A9F4;
 				}
-				h4 {
-					text-align: center;
-					color: #fc5f00;
-					font-size: 28px;
-					line-height: 70px;
-					margin-top: 15px;
-					padding: 10px 0;
+				li:hover h4{
+					color: white;
 				}
-				p {
-					font-size: 16px;
-					color: #999999;
-					line-height: 24px;
+				li:hover p{
+					color: white;
 				}
 			}
 			button {
@@ -427,7 +438,7 @@
 					background: #00aaef;
 					font-size: 18px;
 					box-sizing: border-box;
-					margin: 38px auto 0 auto;
+					margin: 0 auto;
 					display: block;
 					cursor: pointer;
 				}
@@ -440,7 +451,6 @@
 				}
 				span {
 					position: relative;
-					padding-left: 24px;
 					max-width: 50%;
 					box-sizing: border-box;
 					i {
@@ -455,25 +465,28 @@
 						box-sizing: border-box;
 					}
 				}
-				span.act{
-					color:#00aaef;
-					i{
-						border:1px solid #00aaef;
+				span.act {
+					color: #00aaef;
+					i {
+						border: 1px solid #00aaef;
 					}
-					i:after{
-		content:'';
-		display:block;
-		width:10px;
-		height:10px;
-		background:#00aaef;
-		border-radius:10px;
-		position:absolute;
-		left:2px;
-		top:2px;
-	}
+					i:after {
+						content: '';
+						display: block;
+						width: 10px;
+						height: 10px;
+						background: #00aaef;
+						border-radius: 10px;
+						position: absolute;
+						left: 2px;
+						top: 2px;
+					}
 				}
-				
-				
+				p {
+					span {
+						padding-left: 24px;
+					}
+				}
 			}
 			ul li:last-of-type {
 				margin-right: 0;
@@ -531,21 +544,28 @@
 	.templet {
 		.container {
 			padding: 110px 30px;
+			.box {
+				width: 530px
+			}
 			div {
 				display: inline-block;
 			}
 			.big {
 				width: 445px;
-				height: 584px;
 			}
 			.small {
 				width: 260px;
-				height: 274px;
 				margin-bottom: 33px;
 			}
 			.middle {
 				width: 530px;
-				height: 274px;
+			}
+			img {
+				transition: .8s;
+				width: 100%;
+			}
+			img:hover {
+				transform: rotateY(180deg);
 			}
 		}
 	}
@@ -675,18 +695,23 @@
 				}
 				li:nth-of-type(1) {
 					background: url(../../static/img/partner-1.png);
+					background-size: 100% 100%;
 				}
 				li:nth-of-type(2) {
 					background: url(../../static/img/partner-2.png);
+					background-size: 100% 100%;
 				}
 				li:nth-of-type(3) {
 					background: url(../../static/img/partner-3.png);
+					background-size: 100% 100%;
 				}
 				li:nth-of-type(4) {
 					background: url(../../static/img/partner-4.png);
+					background-size: 100% 100%;
 				}
 				li:nth-of-type(5) {
 					background: url(../../static/img/partner-5.png);
+					background-size: 100% 100%;
 				}
 			}
 		}
@@ -699,16 +724,55 @@
 			padding: 0;
 		}
 		.group .container ul li {
-			width: 100%;
-			padding: 0;
+			width: 90%;
+			float: inherit;
+			margin: 0 auto 20px auto;
 		}
 		.experience .container ul li {
 			width: 100%;
 			margin-bottom: 10px;
 		}
+		.online .container ul li {
+			width: 50px;
+			height: 50px;
+			margin-left: 5px;
+			line-height: 50px;
+			font-size: 20px;
+		}
+		.join .container div {
+			float: inherit;
+			padding: 0;
+			margin-bottom: 50px;
+		}
+		.partner .container ul li {
+			margin: 0;
+			width: 150px;
+			height: 60px;
+			margin-left: 10px
+		}
+		.templet {
+			.container {
+				.big {
+					width: 100%;
+				}
+				.small {
+					width: 49%;
+					margin-bottom: 5px
+				}
+				.box {
+					width: 100%;
+				}
+				.middle {
+					width: 100%;
+				}
+			}
+		}
 	}
 	
 	@media only screen and (max-width:768px) {
+		.banner {
+			padding-top: 125px;
+		}
 		.payment .container,
 		.experience .container {
 			padding: 40px 15px;
@@ -718,4 +782,6 @@
 			font-size: 22px;
 		}
 	}
+	
+	@media only screen and (max-width:978px) {}
 </style>

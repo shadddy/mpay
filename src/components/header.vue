@@ -11,6 +11,7 @@
 						{{item.name}}
 					</li>
 				</ul>
+				<!--移动端导航栏-->
 				<nav class="navbar">
 					<h4>
 						<span @click="menu">
@@ -29,12 +30,14 @@
 					</ul>
 				</nav>
 				<!--注册-->
-				<div class="register" @click="registerShow">
+				<div style="float: right;">
+					<div class="register" @click="registerShow">
 					{{$t("header.register")}}
 				</div>
 				<div class="language">
 					<span @click="isLangFun" :class="language?'en':'cn'">{{language?'En':'中文'}}</span>
 					<span @click="langSwitch" :class="isLang?'act':null">{{!language?'En':'中文'}}</span>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -97,19 +100,19 @@
 					}
 				],
 				navListEn:[{
-						name: 'APP download',
+						name: 'APP DOWNLOAD',
 						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav2"),
+						name: 'SOLUTION',
 						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav3"),
+						name: 'CASE',
 						"act": false
 					},
 					{
-						name: this.$t("header.nav_first.nav4"),
+						name: 'RATE SCHEME',
 						"act": false
 					},
 					{
@@ -198,7 +201,7 @@
 					padding: 0 25px;
 				}
 				li:nth-of-type(5) {
-					margin-left: 475px;
+					margin-left: 360px;
 				}
 			}
 			.register {
@@ -242,6 +245,10 @@
 				}
 				.cn {
 					background-image: url(../../static/img/cn.png);
+					background-repeat: no-repeat;
+				}
+				.en{
+					background-image: url(../../static/img/en.png);
 					background-repeat: no-repeat;
 				}
 			}

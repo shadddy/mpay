@@ -3,13 +3,16 @@ module.exports={
 		//一级导航
 		nav_first:{
 			nav1:'APP DownLoad',
-			nav2:'解决方案',
+			nav2:'Solution',
 			nav3:'案列展示',
 			nav4:'费率方案',
 			nav5:'开发者模式',
 			nav6:'免费试用'
 		},
 		register:'register'
+	},
+	banner:{
+		img1:['../../static/img/banner1.png','../../static/img/banner2.png','../../static/img/banner3.png']
 	},
 	//首页
 	index:{

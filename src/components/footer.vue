@@ -115,4 +115,11 @@
 			}
 		}
 	}
+		@media only screen and (max-width:600px) {
+			.footer{
+				.container{
+					padding: 50px 20px;
+				}
+			}
+		}
 </style>

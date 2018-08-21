@@ -71,6 +71,13 @@
 				</ul>
 			</div>
 		</div>
+		<!--客服-->
+		<div class="custom">
+			<div class="container">
+				<h1>{{$t('custom.title')}}</h1>
+				<button>{{$t('custom.btn')}}</button>
+			</div>
+		</div>
 		<!--体验支付流程-->
 		<div class="experience">
 			<div class="container">
@@ -120,7 +127,7 @@
 				<h1>{{$t('online.title')}}</h1>
 				<p>{{$t('online.title2')}}</p>
 				<ul class="clearfix">
-					<li v-for="(item,index) in online" @click="onlineCheck(index)" :class="index==onlineInd?'act':null">
+					<li v-for="(item,index) in online"  @mouseenter="onlineCheck(index)" :class="index==onlineInd?'act':null">
 						>>
 					</li>
 				</ul>
@@ -137,13 +144,13 @@
 			<div class="container">
 				<h1>{{$t('templet.title')}}</h1>
 				<p>{{$t('templet.title2')}}</p>
-				<div class="big"><img src="../../static/img/templet-1.png"></div>
+				<div class="big" @mouseenter="enter(1)" @mouseleave="leave(1)"><transition name="drop"><span v-show="templet1">金融</span></transition><img src="../../static/img/templet-1.png"></div>
 				<div class="box">
-					<div class="small"><img src="../../static/img/templet-2.png"></div>
-					<div class="small"><img src="../../static/img/templet-3.png"></div>
-					<div class="middle"><img src="../../static/img/templet-4.png"></div>
+					<div class="small" @mouseenter="enter(2)" @mouseleave="leave(2)"><transition name="drop"><span v-show="templet2">零售</span></transition><img src="../../static/img/templet-2.png"></div>
+					<div class="small" @mouseenter="enter(3)" @mouseleave="leave(3)"><transition name="drop"><span v-show="templet3">餐饮</span></transition><img src="../../static/img/templet-3.png"></div>
+					<div class="middle" @mouseenter="enter(4)" @mouseleave="leave(4)"><transition name="drop"><span v-show="templet4">游戏</span></transition><img src="../../static/img/templet-4.png"></div>
 				</div>
-				<div class="big"><img src="../../static/img/templet-5.png"></div>
+				<div class="big" @mouseenter="enter(5)" @mouseleave="leave(5)"><transition name="drop"><span v-show="templet5">门店</span></transition><img src="../../static/img/templet-5.png"></div>
 			</div>
 		</div>
 		<!--加入我们-->
@@ -162,13 +169,7 @@
 
 			</div>
 		</div>
-		<!--客服-->
-		<div class="custom">
-			<div class="container">
-				<h1>{{$t('custom.title')}}</h1>
-				<button>{{$t('custom.btn')}}</button>
-			</div>
-		</div>
+		
 		<!--合作伙伴-->
 		<div class="partner">
 			<div class="container">
@@ -232,7 +233,12 @@
 				}],
 				onlineInd: 0,
 				isCheck: true,
-				isCheck2: true
+				isCheck2: true,
+				templet1:false,
+				templet2:false,
+				templet3:false,
+				templet4:false,
+				templet5:false	
 			}
 		},
 		methods: {
@@ -244,6 +250,32 @@
 			onlineCheck: function(val) {
 				console.log(val)
 				this.onlineInd = val
+			},
+			enter(val){
+				if(val==1){
+					this.templet1=true
+				}else if(val==2){
+					this.templet2=true
+				}else if(val==3){
+					this.templet3=true
+				}else if(val==4){
+					this.templet4=true
+				}else if(val==5){
+					this.templet5=true
+				}
+			},
+			leave(val){
+				if(val==1){
+					this.templet1=false
+				}else if(val==2){
+					this.templet2=false
+				}else if(val==3){
+					this.templet3=false
+				}else if(val==4){
+					this.templet4=false
+				}else if(val==5){
+					this.templet5=false
+				}
 			}
 
 		},
@@ -258,6 +290,20 @@
 </script>
 
 <style scoped lang="less">
+
+	.drop-enter-active{
+		transition: .5s ease;
+	}
+	.drop-leave-active{
+		transition: .3s ease;
+	}
+	.drop-enter{
+		transform:translateY(-50px);
+	}
+	.drop-leave-active{
+		transform: translateY(-50px);
+	}
+
 	/* 轮播图*/
 	
 	@media only screen and (max-width:768px) {
@@ -292,7 +338,7 @@
 					transition: .5s;
 					float: left;
 					width: calc(100% / 3);
-					padding: 0 30px;
+					padding:30px;
 					box-sizing: border-box;
 					span {
 						display: block;
@@ -358,7 +404,7 @@
 		background-position: center;
 		background-size: 100% 100%;
 		.container {
-			padding: 110px 0;
+			padding: 90px 0;
 			ul {
 				li {
 					float: left;
@@ -378,6 +424,7 @@
 						padding: 0;
 						text-align: left;
 						padding-top: 25px;
+						height: 50px;
 					}
 					h2 {
 						color: #fff;
@@ -386,7 +433,7 @@
 					}
 					h4 {
 						color: #fff;
-						margin-top: 80px;
+						margin-top: 30px;
 						font-size: 24px;
 					}
 					button {
@@ -398,7 +445,7 @@
 						outline: none;
 						border-radius: 5px;
 						cursor: pointer;
-						margin-top: 80px;
+						margin-top: 60px;
 					}
 					button:hover {
 						background: #a6a6a6;
@@ -509,11 +556,13 @@
 		background-image: url(../../static/img/online-bg.png);
 		background-position: center;
 		.container {
+			text-align: center;
 			padding: 110px 30px 30px 30px;
 			h1 {
 				color: white;
 			}
 			ul {
+				 display:inline-block;  
 				.act {
 					background: #00aaef;
 				}
@@ -524,7 +573,7 @@
 					border-radius: 50%;
 					border: 1px solid #86888a;
 					display: inline-block;
-					margin-left: 80px;
+					margin: 0 30px;
 					cursor: pointer;
 					color: white;
 					font-size: 50px;
@@ -548,14 +597,27 @@
 				width: 530px
 			}
 			div {
+				overflow: hidden;
 				display: inline-block;
+				cursor: pointer;
+				position: relative;
+				span{
+					position: absolute;
+					display: block;
+					padding: 10px 20px;
+					background: rgba(0,0,0,0.5);
+					color: white;
+					border-radius: 20px;
+					left: 25px;
+					top: 25px;
+				}
 			}
 			.big {
 				width: 445px;
 			}
 			.small {
 				width: 260px;
-				margin-bottom: 33px;
+				margin-bottom: 20px;
 			}
 			.middle {
 				width: 530px;
@@ -563,9 +625,6 @@
 			img {
 				transition: .8s;
 				width: 100%;
-			}
-			img:hover {
-				transform: rotateY(180deg);
 			}
 		}
 	}
@@ -589,29 +648,8 @@
 				-ms-transition: .3s;
 				-webkit-transition: .3s;
 				h1 {
-					color: white;
+					color: black;
 				}
-			}
-			div:hover {
-				background: white;
-				border-radius: 10px;
-			}
-			div:hover h1 {
-				color: #333;
-			}
-			div:hover button {
-				color: black;
-				border: 1px solid black;
-			}
-			div:hover p {
-				color: #333;
-			}
-			div button:hover {
-				background: black;
-				color: white;
-				-moz-transition: .3s;
-				-ms-transition: .3s;
-				-webkit-transition: .3s;
 			}
 			.left {
 				h1 {
@@ -629,16 +667,28 @@
 					cursor: pointer;
 					margin-top: 30px;
 				}
+				button:hover{
+					transition:.5s;
+					background: white;
+					color: black;
+				}
 			}
 			.right {
+				background: white;
+				border-radius: 10px;
 				button {
 					background: transparent;
-					color: white;
-					border: 1px solid white;
+					color: black;
+					border: 1px solid black;
 					padding: 15px 30px;
 					font-size: 16px;
 					border-radius: 10px;
 					cursor: pointer;
+				}
+				button:hover{
+					background: black;
+					color: white;
+					transition: .5s;
 				}
 				h1 {
 					text-align: left;
@@ -647,7 +697,7 @@
 					text-align: left;
 					font-size: 24px;
 					margin-top: 10px;
-					color: white;
+					color: black;
 				}
 			}
 		}

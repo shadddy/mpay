@@ -85,38 +85,38 @@
 				<p>{{$t("index.experience.title2")}}</p>
 				<ul class="clearfix">
 					<li>
-						<span><img src="../../static/img/exp-1.png" alt=""></span>
+						<span :class="expCheck1?'active':null"><img src="../../static/img/exp-1.png" alt=""></span>
 						<h3>{{$t("index.experience.list1_1")}}</h3>
 						<p class="clearfix">
 							<span class="ellipsis" :class="isCheck?'act':null" @click="isCheck=true"><i></i>{{$t("index.experience.list1_2")}}</span>
 							<span class="ellipsis" :class="!isCheck?'act':null" @click="isCheck=false"><i></i>{{$t("index.experience.list1_3")}}</span>
 						</p>
-						<button class="ellipsis">{{$t("index.experience.list1_btn")}}</button>
+						<button class="ellipsis" @mouseenter="expCheck1=true" @mouseleave="expCheck1=false">{{$t("index.experience.list1_btn")}}</button>
 					</li>
 					<li>
-						<span><img src="../../static/img/exp-2.png" alt=""></span>
+						<span :class="expCheck2?'active':null"><img src="../../static/img/exp-2.png" alt=""></span>
 						<h3>{{$t("index.experience.list2_1")}}</h3>
 						<p class="clearfix">
 							<span class="ellipsis" :class="isCheck2?'act':null" @click="isCheck2=true"><i></i>{{$t("index.experience.list2_2")}}</span>
 							<span class="ellipsis" :class="!isCheck2	?'act':null" @click="isCheck2=false"><i></i>{{$t("index.experience.list2_3")}}</span>
 						</p>
-						<button class="ellipsis">{{$t("index.experience.list2_btn")}}</button>
+						<button class="ellipsis" @mouseenter="expCheck2=true" @mouseleave="expCheck2=false">{{$t("index.experience.list2_btn")}}</button>
 					</li>
 					<li>
-						<span><img src="../../static/img/exp-3.png" alt=""></span>
+						<span :class="expCheck3?'active':null"><img src="../../static/img/exp-3.png" alt=""></span>
 						<h3>{{$t("index.experience.list3_1")}}</h3>
 						<p class="clearfix">
 							{{$t("index.experience.list3_2")}}
 						</p>
-						<button class="ellipsis">{{$t("index.experience.list3_btn")}}</button>
+						<button class="ellipsis" @mouseenter="expCheck3=true" @mouseleave="expCheck3=false">{{$t("index.experience.list3_btn")}}</button>
 					</li>
 					<li>
-						<span><img src="../../static/img/exp-4.png" alt=""></span>
+						<span :class="expCheck4?'active':null"><img src="../../static/img/exp-4.png" alt=""></span>
 						<h3>{{$t("index.experience.list4_1")}}</h3>
 						<p class="clearfix">
 							{{$t("index.experience.list4_2")}}
 						</p>
-						<button class="ellipsis">{{$t("index.experience.list4_btn")}}</button>
+						<button class="ellipsis" @mouseenter="expCheck4=true" @mouseleave="expCheck4=false">{{$t("index.experience.list4_btn")}}</button>
 					</li>
 				</ul>
 			</div>
@@ -238,7 +238,11 @@
 				templet2:false,
 				templet3:false,
 				templet4:false,
-				templet5:false	
+				templet5:false,
+				expCheck1:false,
+				expCheck2:false,
+				expCheck3:false,
+				expCheck4:false,
 			}
 		},
 		methods: {
@@ -500,6 +504,7 @@
 					position: relative;
 					max-width: 50%;
 					box-sizing: border-box;
+					
 					i {
 						width: 16px;
 						height: 16px;
@@ -542,11 +547,17 @@
 				width: 128px;
 				height: 128px;
 				display: block;
+				border-radius: 50%;
 				margin: 0 auto;
+				background:#cccccc ;
+				transition: .5s;
 				img {
 					display: block;
 					margin: 0 auto;
 				}
+			}
+			ul li>span.active{
+				background: #00aaef;
 			}
 		}
 	}

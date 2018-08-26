@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div class="dialog-wrap">
-			
 			<div class="dialog-content" v-if="isShow">
 				<span class="dialog-close" @click="closeMyself">X</span>
 				<slot>empty</slot>
@@ -11,6 +10,7 @@
 </template>
 
 <script>
+	
 	export default{
 		props:{
 			title:{
@@ -42,6 +42,7 @@
 		background: rgba(0,0,0,0.5);
 		
 		.dialog-content{
+			
 			max-width: 700px;
 			width: 50%;
 			position: fixed;
@@ -53,7 +54,6 @@
 			margin-left: -25%;
 			z-index: 10;
 			border: 2px solid #464068;
-			padding:2%;
 			line-height: 1.6;
 			h1{
 				background: #f5f6fa;
@@ -63,6 +63,21 @@
 				right: 15px;
 				top: 10px;
 				cursor: pointer;
+			}
+		}
+	}
+	/*移动端*/
+	@media only screen and (max-width:768px){
+		.dialog-wrap{
+			.dialog-content{
+				width: 100%;
+				top: 0;
+				left: 0;
+				height: 100%;
+				max-width: none;
+				max-height: none;
+				margin-left: 0;
+				
 			}
 		}
 	}

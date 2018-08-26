@@ -41,6 +41,11 @@ html,body{
   background:#f7f7f7;
 
 }
+div{
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
 .container{
 	width:1490px;
 	margin:0 auto;
@@ -58,6 +63,7 @@ html,body{
     text-align: center;
     padding: 18px 0 80px;
 	}
+	
 }
 @media only screen and (max-width:1280px) {
 	.container{

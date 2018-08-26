@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<my-dialog title="注册" @on-close="registerShow=false" v-show="registerShow"></my-dialog>
+		<my-dialog title="注册" @on-close="registerShow=false" v-show="registerShow">
+			<my-login></my-login>
+		</my-dialog>
 		<my-header @open="registerShow=true"></my-header>
 		<div class="banner">
 			<!-- pc 轮播图-->
@@ -193,11 +195,13 @@
 	import header from '@/components/header'
 	import footer from '@/components/footer'
 	import dialog from '../components/base/dialog'
+	import login from '@/components/login'
 	export default {
 		components: {
 			myHeader: header,
 			myFooter: footer,
-			myDialog: dialog
+			myDialog: dialog,
+			myLogin:login
 		},
 		data() {
 			return {

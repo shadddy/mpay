@@ -14,6 +14,14 @@ module.exports={
 	banner:{
 		img1:['../../static/img/banner1.png','../../static/img/banner2.png','../../static/img/banner3.png']
 	},
+	login:{
+		title:'welcome',
+		username:'请输入邮箱/手机号',
+		password:'请输入密码',
+		btn:'登录',
+		register:'我要注册',
+		forget:'忘记密码?'
+	},
 	//首页
 	index:{
 		payment_title:'No alipay',

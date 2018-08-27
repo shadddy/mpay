@@ -12,9 +12,46 @@ module.exports={
 		},
 		register:'注册'
 	},
-	
+	//banner图
 	banner:{
 		img1:['../../static/img/banner1.png','../../static/img/banner2.png','../../static/img/banner3.png']
+	},
+	//登录
+	login:{
+		title:'欢迎使用摩派支付',
+		username:'请输入邮箱/手机号',
+		password:'请输入密码',
+		btn:'登录',
+		register:'我要注册',
+		forget:'忘记密码?',
+		username_check:'用户名不能为空!',
+		password_check:'密码不能为空!'
+	},
+	//注册
+	register:{
+		title:'账户注册',
+		username:'请输入邮箱地址',
+		name:'请输入您的姓名',
+		phone:'请输入手机号码',
+		qq:'请输入QQ号码',
+		password:'密码不少于12位',
+		password2:'再次确认密码',
+		invite:'请输入邀请码',
+		btn:'立即注册',
+		back:'返回登录'
+	},
+	//忘记密码
+	forget:{
+		title:'找回密码',
+		username:'请输入邮箱地址',
+		phone:'请输入手机号码',
+		identify1:'请输入验证码',
+		identify2:'请输入短信验证码',
+		newPass:'新密码',
+		confirmPass:'再次确认密码',
+		btn:'重置密码',
+		back:'返回登录',
+		note:'温馨提示:邮箱验证或手机号验证，任选其一即可'
 	},
 	//首页
 	index:{

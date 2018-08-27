@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="dialog-wrap">
+		<div class="dialog-wrap" >
 			<div class="dialog-content" v-if="isShow">
-				<span class="dialog-close" @click="closeMyself">X</span>
+				<span class="dialog-close" @click="closeMyself">x</span>
 				<slot>empty</slot>
 			</div>
 		</div>
@@ -25,8 +25,8 @@
 		},
 		methods:{
 			closeMyself(){
-				this.$emit('on-close')
-			}
+				this.$store.state.show=false
+			},
 		}
 	}
 </script>
@@ -78,6 +78,14 @@
 				max-height: none;
 				margin-left: 0;
 				
+			}
+			.dialog-close{
+				position: absolute;
+				right: 15px;
+				top: 10px;
+				cursor: pointer;
+				color: white;
+				font-size: 24px;
 			}
 		}
 	}

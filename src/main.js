@@ -6,10 +6,12 @@ import router from './router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import { Toast ,MessageBox} from 'mint-ui';
+import vuex from 'vue'
+import store from './store'
+
 window.MessageBox=MessageBox
 
 Vue.use(MintUI)
-
 import { XButton, Swiper,AlertModule,Alert, Step, StepItem  } from 'vux'
 Vue.component('x-button', XButton)
 Vue.component('swiper', Swiper)
@@ -41,6 +43,7 @@ new Vue({
   el: '#app',
   router,
   i18n,
+  store,	
   components: { App },
   template: '<App/>'
 })

@@ -14,7 +14,7 @@
 				</div>
 				<div class="login-other">
 					<a @click="curStatus='register'">{{$t("login.register")}}</a>
-					<a @click="curStatus='forget'">{{$t("login.forget")}}</a>
+					<a @click="toForget">{{$t("login.forget")}}</a>
 				</div>
 			</div>
 		</div>
@@ -27,27 +27,42 @@
 				{{$t("register.btn")}}
 			</div>
 			<a class="back" @click="curStatus='login'">{{$t("register.back")}}</a>
-			
+
 		</div>
 		<!--忘记密码-->
 		<div class="forget-content" v-show="curStatus=='forget'">
 			<h1 class="head">{{$t("forget.title")}}</h1>
-			<input type="text" :placeholder="forget.username.name" />
+			<input type="text" :placeholder="forget.username.name" v-model="forget.username.value"/>
+			<div class="identify_1">
+				<input type="number" class="identifyInput_1" v-model="identify1" placeholder="请输入图形验证码"/>
+				<div class="code" @click="refreshCode">
+					<s-identify :identifyCode="identifyCode"></s-identify>
+				</div>
+			</div>
 			<input type="number" :placeholder="forget.phone.name" />
+			<div class="identify_1">
+				<input type="number" class="identifyInput_1" v-model="identify2" placeholder="请输入短信验证码"/>
+				<div class="identify-btn">获取验证码</div>
+			</div>
 			<input type="password" :placeholder="forget.newPass.name" />
-			<input type="password" :placeholder="forget.newPass.name" />
-			<div class="btn">
+			<input type="password" :placeholder="forget.confirmPass.name" />
+			<div class="btn" @click="forgetFun">
 				{{$t("forget.btn")}}
 			</div>
 			<a class="back" @click="curStatus='login'">{{$t("forget.back")}}</a>
 			<a class="note">{{$t("forget.note")}}</a>
 		</div>
+
 	</div>
 </template>
 
 <script>
+	import sIdentify from '../components/base/identify'
 	export default {
 		name: 'login',
+		components: {
+			sIdentify
+		},
 
 		data() {
 			return {
@@ -125,11 +140,23 @@
 						name: this.$t('forget.confirmPass'),
 						value: ''
 					}
-				}
+				},
+				identifyCodes: "1234567890",
+				identifyCode: "",
+				identify1: '',
+				identify2:''
 
 			}
 		},
+		mounted() {
+			this.identifyCode = "";
+			this.makeCode(this.identifyCodes, 4);
+		},
 		methods: {
+			//关闭界面
+			closeMyself(){
+				this.$store.state.show=false
+			},
 			//登录
 			loginFun() {
 				let that = this;
@@ -141,6 +168,43 @@
 					alert('密码不能为空')
 					return false
 				}
+				alert('登陆成功')
+				this.closeMyself()
+			
+			},
+			//忘记密码
+			toForget(){
+				this.curStatus='forget'
+				this.forget.username.value=''
+				this.refreshCode()
+			},
+			forgetFun(){
+				let that=this
+				if(this.forget.username.value==""){
+					alert('用户名不能为空')
+					return
+				}
+				else if(this.identify1!==this.identifyCode){
+					alert('验证码不对')
+					this.refreshCode()
+					return
+				}
+			},	
+			randomNum(min, max) {
+				return Math.floor(Math.random() * (max - min) + min);
+			},
+			refreshCode() {
+				this.identifyCode = "";
+				this.identify1=""
+				this.makeCode(this.identifyCodes, 4);
+			},
+			makeCode(o, l) {
+				for(let i = 0; i < l; i++) {
+					this.identifyCode += this.identifyCodes[
+						this.randomNum(0, this.identifyCodes.length)
+					];
+				}
+				console.log(this.identifyCode);
 			}
 		}
 	}
@@ -202,7 +266,26 @@
 				color: #89909a;
 				font-size: 14vw/@w;
 				margin-top: 50vw/@w;
-				
+			}
+			.identify_1{
+				display: flex;
+				padding: 0 64vw/@w;
+				margin-top: 35vw/@w;
+			}
+			.identifyInput_1 {
+				width: 300vw/@w;
+				height: 65vw/@w;
+				background: white;
+				color: black;
+				text-indent: 20px;
+			}
+			.identify-btn{
+				width: 195vw/@w;
+				height: 65vw/@w;
+				background:#39daf7 ;
+				color: white;
+				text-align: center;
+				line-height: 64vw/@w;
 			}
 			.login-content {
 				.login-logo {
@@ -219,6 +302,7 @@
 						color: #f5f5f5;
 					}
 					a:nth-of-type(1) {
+						padding-left: 10px;
 						border-right: 1px solid #f5f5f5;
 						padding-right: 5px;
 					}

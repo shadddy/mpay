@@ -14,7 +14,7 @@ module.exports={
 	},
 	//banner图
 	banner:{
-		img1:['../../static/img/banner1.png','../../static/img/banner2.png','../../static/img/banner3.png']
+		img1:[require('../../static/img/banner1.png'),require('../../static/img/banner2.png'),require('../../static/img/banner3.png')]
 	},
 	//登录
 	login:{

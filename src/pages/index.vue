@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<my-dialog title="注册" @on-close="registerShow=false" v-show="registerShow">
+		<my-dialog title="注册" @on-close="registerShow=false" v-show="$store.state.show" >
 			<my-login></my-login>
 		</my-dialog>
-		<my-header @open="registerShow=true"></my-header>
+		<my-header @open="$store.state.show=true"></my-header>
 		<div class="banner">
 			<!-- pc 轮播图-->
 			<el-carousel :interval="3000" arrow="always" class="bigShow" trigger="click" :height="bannerImgH">
@@ -210,9 +210,9 @@
 				imgList: [{
 					img: this.$t("banner.img1")
 				}, {
-					img: "../../static/img/banner2.png"
+					img: this.$t("banner.img2")
 				}, {
-					img: "../../static/img/banner3.png"
+					img: this.$t("banner.img3")
 				}],
 				imgIndex: 1,
 				loop: true,

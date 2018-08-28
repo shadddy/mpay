@@ -208,11 +208,11 @@
 				bannerImgH: "0",
 				registerShow: false,
 				imgList: [{
-					img: this.$t("banner.img1")
+					img: this.$t("banner.img1[0]")
 				}, {
-					img: this.$t("banner.img2")
+					img: this.$t("banner.img1[1]")
 				}, {
-					img: this.$t("banner.img3")
+					img: this.$t("banner.img1[2]")
 				}],
 				imgIndex: 1,
 				loop: true,

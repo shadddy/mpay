@@ -42,11 +42,8 @@
 		background: rgba(0,0,0,0.5);
 		
 		.dialog-content{
-			
-			max-width: 700px;
-			width: 50%;
 			position: fixed;
-			max-height: 50%;
+ 
 			overflow: auto;
 			background: #fff;
 			top: 20%;

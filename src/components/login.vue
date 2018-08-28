@@ -8,7 +8,7 @@
 					<img src="../../static/img/login-logo.png" />
 				</div>
 				<!--循环渲染login数据-->
-				<input v-for="item in login" :type="item.type" v-model="item.value" :placeholder="item.name" />
+				<input v-for="item in login" :type="item.type" v-model="item.value" :placeholder="item.name" class="icon" :class="item.class" />
 				<div class="btn" @click="loginFun">
 					{{$t("login.btn")}}
 				</div>
@@ -22,46 +22,51 @@
 		<div class="register-content" v-show="curStatus=='register'">
 			<h1 class="head">{{$t("register.title")}}</h1>
 			<!--循环渲染register数据-->
-			<input v-for="item in register" v-model="item.value" :placeholder="item.name" :type="item.type" />
-			<div class="btn">
+			<input v-for="item in register" v-model="item.value" :placeholder="item.name" :type="item.type" class="icon" :class="item.class"/>
+			<div class="btn" @click="registerFun">
 				{{$t("register.btn")}}
 			</div>
 			<a class="back" @click="curStatus='login'">{{$t("register.back")}}</a>
 
 		</div>
-		<!--忘记密码-->
+		<!--找回密码-->
 		<div class="forget-content" v-show="curStatus=='forget'">
 			<h1 class="head">{{$t("forget.title")}}</h1>
-			<input type="text" :placeholder="forget.username.name" v-model="forget.username.value"/>
+			<input type="text" :placeholder="forget.username.name" v-model="forget.username.value" class="icon icon-email"/>
 			<div class="identify_1">
-				<input type="number" class="identifyInput_1" v-model="identify1" placeholder="请输入图形验证码"/>
+				<input type="number" class="identifyInput_1" v-model="identify1" placeholder="请输入图形验证码" />
 				<div class="code" @click="refreshCode">
 					<s-identify :identifyCode="identifyCode"></s-identify>
 				</div>
 			</div>
-			<input type="number" :placeholder="forget.phone.name" />
+			<input type="number" :placeholder="forget.phone.name" class="icon icon-phone"/>
 			<div class="identify_1">
-				<input type="number" class="identifyInput_1" v-model="identify2" placeholder="请输入短信验证码"/>
+				<input type="number" class="identifyInput_1" v-model="identify2" placeholder="请输入短信验证码" />
 				<div class="identify-btn">获取验证码</div>
 			</div>
-			<input type="password" :placeholder="forget.newPass.name" />
-			<input type="password" :placeholder="forget.confirmPass.name" />
+			<input type="password" :placeholder="forget.newPass.name" class="icon icon-pass"/>
+			<input type="password" :placeholder="forget.confirmPass.name" class="icon icon-pass"/>
 			<div class="btn" @click="forgetFun">
 				{{$t("forget.btn")}}
 			</div>
 			<a class="back" @click="curStatus='login'">{{$t("forget.back")}}</a>
 			<a class="note">{{$t("forget.note")}}</a>
 		</div>
-
+		<!--订单页-->
+		<div class="order-content" v-show="curStatus=='order'">
+			<my-order></my-order>
+		</div>
 	</div>
 </template>
 
 <script>
 	import sIdentify from '../components/base/identify'
+	import myOrder from '../components/order'
 	export default {
 		name: 'login',
 		components: {
-			sIdentify
+			sIdentify,
+			myOrder
 		},
 
 		data() {
@@ -76,12 +81,14 @@
 					username: {
 						name: this.$t('login.username'),
 						value: '',
-						type: 'text'
+						type: 'text',
+						class: 'icon-user'
 					},
 					password: {
 						name: this.$t('login.password'),
 						value: '',
-						type: 'password'
+						type: 'password',
+						class: 'icon-pass'
 					}
 				},
 				/*注册页数据*/
@@ -89,73 +96,89 @@
 					resUsername: {
 						name: this.$t('register.username'),
 						value: '',
-						type: 'text'
+						type: 'text',
+						class:'icon-email'
 					},
 					resName: {
 						name: this.$t('register.name'),
 						value: '',
-						type: 'text'
+						type: 'text',
+						class:'icon-user'
 					},
 					resNum: {
 						name: this.$t('register.phone'),
 						value: '',
-						type: 'number'
+						type: 'number',
+						class:'icon-phone'
 					},
 					resQQ: {
 						name: this.$t('register.qq'),
 						value: '',
-						type: 'number'
+						type: 'number',
+						class:'icon-qq'
 					},
 					resPass: {
 						name: this.$t('register.password'),
 						value: '',
-						type: 'password'
+						type: 'password',
+						class:'icon-pass'
 					},
 					resPass2: {
 						name: this.$t('register.password2'),
 						value: '',
-						type: 'password'
+						type: 'password',
+						class:'icon-pass'
 					},
 					resInvite: {
 						name: this.$t('register.invite'),
 						value: '',
-						type: 'number'
+						type: 'number',
+						class:'icon-invite'
 					}
 				},
-				/*忘记密码*/
+				/*找回密码页数据*/
 				forget: {
 					username: {
 						name: this.$t('forget.username'),
-						value: ''
+						value: '',
+						class:'icon-email'
 					},
 					phone: {
 						name: this.$t('forget.phone'),
-						value: ''
+						value: '',
+						class:'icon-phone'
 					},
 					newPass: {
 						name: this.$t('forget.newPass'),
-						value: ''
+						value: '',
+						class:'icon-pass'
 					},
 					confirmPass: {
 						name: this.$t('forget.confirmPass'),
-						value: ''
+						value: '',
+						class:'icon-pass'
 					}
 				},
+				//验证码
 				identifyCodes: "1234567890",
 				identifyCode: "",
-				identify1: '',
-				identify2:''
+				identify1: '', //数字验证码
+				identify2: '' //手机验证码
 
 			}
 		},
 		mounted() {
+
 			this.identifyCode = "";
 			this.makeCode(this.identifyCodes, 4);
 		},
 		methods: {
 			//关闭界面
-			closeMyself(){
-				this.$store.state.show=false
+			closeMyself() {
+				this.$store.state.show = false
+			},
+			toLogin() {
+				this.curStatus = 'login'
 			},
 			//登录
 			loginFun() {
@@ -169,33 +192,58 @@
 					return false
 				}
 				alert('登陆成功')
-				this.closeMyself()
-			
+				this.curStatus = "order"
+
 			},
-			//忘记密码
-			toForget(){
-				this.curStatus='forget'
-				this.forget.username.value=''
-				this.refreshCode()
-			},
-			forgetFun(){
-				let that=this
-				if(this.forget.username.value==""){
+
+			//注册
+			registerFun() {
+				if(this.register.resUsername.value == '') {
 					alert('用户名不能为空')
 					return
+				} else if(this.register.resName.value == '') {
+					alert('姓名不能为空')
+					return
+				} else if(this.register.resNum.value == '') {
+					alert('手机号码不能为空')
+					return
+				} else if(this.register.resPass.value == '') {
+					alert('密码不能为空')
+					return
+				} else if(this.register.resPass2.value == '') {
+					alert('密码不能为空')
+					return
+				} else if(this.register.resInvite.value == '') {
+					alert('邀请码不能为空')
+					return
 				}
-				else if(this.identify1!==this.identifyCode){
+				alert('注册成功')
+				this.closeMyself()
+			},
+			//初始化忘记密码
+			toForget() {
+				this.curStatus = 'forget'
+				this.forget.username.value = ''
+				this.refreshCode()
+			},
+			//重置密码
+			forgetFun() {
+				let that = this
+				if(this.forget.username.value == "") {
+					alert('用户名不能为空')
+					return
+				} else if(this.identify1 !== this.identifyCode) {
 					alert('验证码不对')
 					this.refreshCode()
 					return
 				}
-			},	
+			},
 			randomNum(min, max) {
 				return Math.floor(Math.random() * (max - min) + min);
 			},
 			refreshCode() {
 				this.identifyCode = "";
-				this.identify1=""
+				this.identify1 = ""
 				this.makeCode(this.identifyCodes, 4);
 			},
 			makeCode(o, l) {
@@ -205,6 +253,13 @@
 					];
 				}
 				console.log(this.identifyCode);
+			}
+		},
+		watch: {
+			"$store.state.show": function() {
+				if(this.$store.state.show) {
+					this.toLogin()
+				}
 			}
 		}
 	}
@@ -218,10 +273,10 @@
 	@media only screen and (max-width:768px) {
 		.login-wrap {
 			width: 100%;
-			height: 100%;
+			min-height: 100%;
 			background-color: #2f4158;
 			input {
-				background: transparent;
+				background-color: transparent;
 				border: none;
 				border-bottom: 1px solid #dbdbdb;
 				color: #dbdbdb;
@@ -229,6 +284,7 @@
 				display: block;
 				height: 90vw/@w;
 				width: 512vw/@w;
+				text-indent: 40vw/@w;
 			}
 			input:-webkit-autofill {
 				-webkit-box-shadow: 0 0 0 1000px white inset !important;
@@ -267,7 +323,7 @@
 				font-size: 14vw/@w;
 				margin-top: 50vw/@w;
 			}
-			.identify_1{
+			.identify_1 {
 				display: flex;
 				padding: 0 64vw/@w;
 				margin-top: 35vw/@w;
@@ -279,10 +335,10 @@
 				color: black;
 				text-indent: 20px;
 			}
-			.identify-btn{
+			.identify-btn {
 				width: 195vw/@w;
 				height: 65vw/@w;
-				background:#39daf7 ;
+				background: #39daf7;
 				color: white;
 				text-align: center;
 				line-height: 64vw/@w;
@@ -302,7 +358,6 @@
 						color: #f5f5f5;
 					}
 					a:nth-of-type(1) {
-						padding-left: 10px;
 						border-right: 1px solid #f5f5f5;
 						padding-right: 5px;
 					}
@@ -317,6 +372,30 @@
 					display: block;
 					color: #f5f5f5;
 				}
+			}
+			.icon{
+				background-repeat: no-repeat;
+				background-position: left center;
+				background-size: 28vw/@w 32vw/@w;
+			}
+			.icon-user {
+				background-image: url(../../static/img/user-icon.png);
+				
+			}
+			.icon-pass {
+				background-image: url(../../static/img/pass-icon.png);
+			}
+			.icon-phone{
+				background-image: url(../../static/img/phone-icon.png);
+			}
+			.icon-invite{
+				background-image: url(../../static/img/invite-icon.png);
+			}
+			.icon-email{
+				background-image: url(../../static/img/email-icon.png);
+			}
+			.icon-qq{
+				background-image: url(../../static/img/qq-icon.png);
 			}
 		}
 	}
